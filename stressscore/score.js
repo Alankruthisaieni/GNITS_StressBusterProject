@@ -82,61 +82,77 @@ window.onload = function () {
 };
 
 function next() {
-  let user_answer = document.querySelector("li.option.active").innerHTML;
-  // console.log(user_answer);
-  if (question_count == 3 || question_count == 4 || question_count == 6 || question_count == 7) {
-    if (user_answer == questions[question_count].options[0]) {
-      point += 4;
-      sessionStorage.setItem("points", point);
-    }
-    else if (user_answer == questions[question_count].options[1]) {
-      point += 3;
-      sessionStorage.setItem("points", point);
-    }
-    else if (user_answer == questions[question_count].options[2]) {
-      point += 2;
-      sessionStorage.setItem("points", point);
-    }
-    else if (user_answer == questions[question_count].options[3]) {
-      point += 1;
-      sessionStorage.setItem("points", point);
-    }
-    else if (user_answer == questions[question_count].options[4]) {
-      point += 0;
-      sessionStorage.setItem("points", point);
+  //For validation of form
+  clearErrors("");
+  // console.log(document.getElementById("formerror").innerHTML);
+  let result = document.querySelectorAll("li.option");
+  let flag = 0;
+  for (let i = 0; i < result.length; i++) {
+    if (result[i].classList.contains("active")) {
+      // console.log(result[i].innerHTML);
+      flag = 1;
+      break;
     }
   }
+  if (flag == 0) {
+    seterror("  *Select a suitable choice");
+  }
+  //
   else {
-    if (user_answer == questions[question_count].options[0]) {
-      point += 0;
-      sessionStorage.setItem("points", point);
+    let user_answer = document.querySelector("li.option.active").innerHTML;
+    // console.log(user_answer);
+    if (question_count == 3 || question_count == 4 || question_count == 6 || question_count == 7) {
+      if (user_answer == questions[question_count].options[0]) {
+        point += 4;
+        sessionStorage.setItem("points", point);
+      }
+      else if (user_answer == questions[question_count].options[1]) {
+        point += 3;
+        sessionStorage.setItem("points", point);
+      }
+      else if (user_answer == questions[question_count].options[2]) {
+        point += 2;
+        sessionStorage.setItem("points", point);
+      }
+      else if (user_answer == questions[question_count].options[3]) {
+        point += 1;
+        sessionStorage.setItem("points", point);
+      }
+      else if (user_answer == questions[question_count].options[4]) {
+        point += 0;
+        sessionStorage.setItem("points", point);
+      }
     }
-    else if (user_answer == questions[question_count].options[1]) {
-      point += 1;
-      sessionStorage.setItem("points", point);
+    else {
+      if (user_answer == questions[question_count].options[0]) {
+        point += 0;
+        sessionStorage.setItem("points", point);
+      }
+      else if (user_answer == questions[question_count].options[1]) {
+        point += 1;
+        sessionStorage.setItem("points", point);
+      }
+      else if (user_answer == questions[question_count].options[2]) {
+        point += 2;
+        sessionStorage.setItem("points", point);
+      }
+      else if (user_answer == questions[question_count].options[3]) {
+        point += 3;
+        sessionStorage.setItem("points", point);
+      }
+      else if (user_answer == questions[question_count].options[4]) {
+        point += 4;
+        sessionStorage.setItem("points", point);
+      }
     }
-    else if (user_answer == questions[question_count].options[2]) {
-      point += 2;
-      sessionStorage.setItem("points", point);
+    if (question_count == questions.length - 1) {
+      location.href = "end.html";
+      return;
     }
-    else if (user_answer == questions[question_count].options[3]) {
-      point += 3;
-      sessionStorage.setItem("points", point);
-    }
-    else if (user_answer == questions[question_count].options[4]) {
-      point += 4;
-      sessionStorage.setItem("points", point);
-    }
+    question_count++;
+    show(question_count);
   }
-
-  if (question_count == questions.length - 1) {
-    location.href = "end.html";
-    return;
-  }
-  question_count++;
-  show(question_count);
 }
-
 function show(count) {
   let question = document.getElementById("questions");
   question.innerHTML = `
@@ -163,4 +179,12 @@ function toggleActive() {
       option[i].classList.add("active");
     }
   }
+}
+
+//new code
+function clearErrors(str) {
+  document.getElementById("formerror").innerHTML = str;
+}
+function seterror(error) {
+  document.getElementById("formerror").innerHTML = error;
 }
