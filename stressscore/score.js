@@ -1,6 +1,6 @@
 function submitForm(e) {
   e.preventDefault();
-  location.href = "quiz.html";
+  location.href = "stressscore/quiz.html";
 }
 let questions = [
   {
